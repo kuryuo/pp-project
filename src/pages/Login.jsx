@@ -16,7 +16,7 @@ function Login() {
       <div className="auth-container">
         <img src={auth} alt="auth" className="auth-image" />
         <form onSubmit={handleSubmit} className="auth-form">
-          <h1>Войти</h1>
+          <h1 className='auth-h1'>Войти</h1>
           <div className='label-container'>
           <label>
             Почта
@@ -28,7 +28,7 @@ function Login() {
           </label>
           </div>
           <button type="submit">Войти</button>
-          <p>Нет аккаунта? <a href="/register">Регистрация</a></p>
+          <p className='p-auth'>Нет аккаунта? <a href="/register">Регистрация</a></p>
         </form>
       </div>
     </>

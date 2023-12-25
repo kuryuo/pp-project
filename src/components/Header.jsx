@@ -7,7 +7,9 @@ function Header() {
     <header>
       <nav>
         <ul>
-          <li><Link to="/login">Вход</Link></li>
+          <li><Link to="/">HomeAll</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/account">Account</Link></li>
         </ul>
       </nav>
     </header>

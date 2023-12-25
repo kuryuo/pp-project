@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/auth.css';
 import auth from '../images/auth.jpg';
-// import Header from '../components/Header';
 
 function Registration() {
   const [email, setEmail] = useState('');
@@ -15,11 +14,10 @@ function Registration() {
 
   return (
     <>
-     {/* <Header /> */}
       <div className='auth-container'>
         <img src={auth} alt="auth" />
         <form onSubmit={handleSubmit}>
-          <h1>Регистрация</h1>
+          <h1 className='auth-h1'>Регистрация</h1>
           <div className='label-container'>
           <label>
             Почта
@@ -38,7 +36,7 @@ function Registration() {
           </div>
           </div>
           <button type="submit">Зарегистрироваться</button>
-          <p>Уже есть аккаунт?<a href="/login">Вход</a></p> {/* Добавлен текст "Нет аккаунта? Регистрация" */}
+          <p className='p-auth'>Уже есть аккаунт?<a href="/login">Вход</a></p> {/* Добавлен текст "Нет аккаунта? Регистрация" */}
         </form>
       </div>
     </>

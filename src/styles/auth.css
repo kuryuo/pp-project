@@ -1,14 +1,14 @@
-h1{
+.auth-h1{
   font-family: 'Poppins', sans-serif;
   font-size: 38px;
-  font-weight: bold;
+  font-weight: 38;
   margin-top: 70px;
-  margin-bottom: 140px;
+  margin-bottom: 120px;
   color: #043133;
 }
 
 .auth-container {
-  display: flex;
+  display: flex; 
   flex-direction: row; 
   height: 100vh;
   width: 100%;
@@ -30,6 +30,8 @@ form {
 }
 
 label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -78,4 +80,9 @@ button[type="submit"] {
     flex-direction: row; 
     align-self: flex-start; 
     gap:20px;
+  }
+
+  .p-auth{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
   }

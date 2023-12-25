@@ -1,0 +1,126 @@
+.h2-home{
+  color:#FFFFFF;
+  font-family: 'Kurale', serif;
+  font-weight: 400;
+  margin-left: 25px;
+  margin-top: -80px;
+}
+
+.p-home{
+  font-family: 'Kurale', serif;
+  font-size: 17px;
+  color:#FFFFFF;
+  margin-left: 25px;
+  margin-bottom: 80px;
+  margin-right: 25px;
+}
+
+.line {
+  height: 2px; 
+  width: 15px;
+  background-color: #FFFFFF; 
+  margin-left: 25px;
+}
+
+.main-home {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 8fr 7fr;
+    grid-template-areas: 
+      "welcome create"
+      "welcome part";
+  }
+  
+  .welcome {
+    grid-area: welcome;
+    background-color: #A8D0E6;
+  }
+  
+  .create {
+    grid-area: create;
+    background-color: #F76C6C;
+  }
+  
+  .take-part {
+    grid-area: part;
+    background-color: #374785;
+  }
+
+  .picture-1 {
+    width: 450px;
+    height: 377px;
+    object-fit: contain;
+  } 
+
+  .picture-2{
+    width: 150px;
+    height: 143px;
+    object-fit: contain;
+  }
+
+  .picture-3{
+    width: 150px;
+    height: 143px;
+    object-fit: contain;
+  }
+
+  .welcome, .create, .take-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text-content {
+    align-self: flex-start;
+  }
+
+  .buttons-home {
+    display: flex;
+    width: 200px; 
+    margin: 0 auto; 
+    justify-content: flex-start;
+    margin-right: 265px;
+  }
+
+.login {
+  background-color: #374785;
+  border: 1px solid #000000;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 0px;
+  margin-top: -20px;
+  border-radius: 5px 0px 0px 5px;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition-duration: 0.4s; 
+  
+}
+
+.register{
+  background-color: #F76C6C;
+  border: 1px solid #000000;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 0px;
+  margin-top: -20px;
+  border-radius: 0px 5px 5px 0px;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition-duration: 0.4s; 
+}
+
+.login:hover{
+  background-color: #222F64; /* Темно-зеленый */
+}
+
+.register:hover{
+  background-color: #D44242; 
+}
