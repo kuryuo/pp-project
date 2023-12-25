@@ -1,52 +1,81 @@
 h1{
-    font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 70px;
+  margin-bottom: 140px;
+  color: #043133;
 }
 
-div {
+.auth-container {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row; 
   height: 100vh;
   width: 100%;
-  padding: 20px;
+}
+
+img {
+  flex: 40%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover; 
 }
 
 form {
+  flex: 60%; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 60%;
-  padding: 20px;
-  background-color: white;
+  justify-content: flex-start;
 }
 
 label {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 500px;
   margin-bottom: 20px;
+  justify-content: flex-start;
+  font-weight: 500;
+  color: #4D5959;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-top: 5px;
+  border:none;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #EFF0F2;
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
+  padding: 10px 40px;
+  background-color: #007074;
+  color: #FFFFFF;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  margin: 30px;
+  font-size: 18px;
 }
   
   button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #074C4E;
   }
 
-  img {
-    max-height: 100%;
+  button[type="button"]{
+    background-color: #EFF0F2;
+    color:#4D5959;
+    border: none;
+    padding: 5px;
+  }
+
+  button[type="button"]:hover {
+    background-color: #D4D4D4;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row; 
+    align-self: flex-start; 
+    gap:20px;
   }

@@ -1,35 +1,47 @@
 import React, { useState } from 'react';
 import '../styles/auth.css';
+import auth from '../images/auth.jpg';
+// import Header from '../components/Header';
 
 function Registration() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [profileType, setProfileType] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // обработка данных формы
-    console.log(`Username: ${username}, Email: ${email}, Password: ${password}`);
+    console.log(`Email: ${email}, Password: ${password}, Profile Type: ${profileType}`);
   };
 
   return (
-    <div>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Имя пользователя:
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Email:
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
-      <label>
-        Пароль:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <button type="submit">Зарегистрироваться</button>
-    </form>
-    </div>
+    <>
+     {/* <Header /> */}
+      <div className='auth-container'>
+        <img src={auth} alt="auth" />
+        <form onSubmit={handleSubmit}>
+          <h1>Регистрация</h1>
+          <div className='label-container'>
+          <label>
+            Почта
+            <input type="email" placeholder="Введите почту" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <label>
+            Пароль
+            <input type="password" placeholder="Введите пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <label>
+            Тип профиля
+          </label>
+          <div className="button-container">
+            <button type="button" className="reg-button" onClick={() => setProfileType('Респондент')}>Респондент</button>
+            <button type="button" className="reg-button" onClick={() => setProfileType('Компания')}>Компания</button>
+          </div>
+          </div>
+          <button type="submit">Зарегистрироваться</button>
+          <p>Уже есть аккаунт?<a href="/login">Вход</a></p> {/* Добавлен текст "Нет аккаунта? Регистрация" */}
+        </form>
+      </div>
+    </>
   );
 }
 
