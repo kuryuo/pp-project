@@ -31,7 +31,7 @@
   .survey-list li {
     background-color: #FFFFFF; 
     padding: 20px; 
-    border: 5px solid #374785;
+    border: 5px solid #252828;
     border-radius: 10px; 
     width: 200px; 
     height: 100px;
@@ -42,13 +42,13 @@
 
   .logout{
     border:none;
-    background-color: #374785;
+    background-color: #474A4A;
     color:#FFFFFF;
     padding: 10px 20px;
     border-radius: 10px;
   }
 
     .logout:hover{
-        background-color: #0D2068;
+        background-color: #252828;
         color:#FFFFFF;
     }

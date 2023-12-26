@@ -21,14 +21,14 @@ nav ul {
 
 nav ul li a {
   text-decoration: none;
-  color: #043133;
+  color: #252828;
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
 }
 
 nav ul li a:hover {
   color: #FFFFFF;
-  background-color: #374785;
+  background-color: #252828;
   padding: 5px 10px;
   border-radius: 5px;
 }

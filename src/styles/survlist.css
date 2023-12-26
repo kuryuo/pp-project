@@ -8,7 +8,7 @@
 .surveys-list li {
     background-color: #FFFFFF; 
     padding: 20px; 
-    border: 5px solid #374785;
+    border: 5px solid #252828;
     border-radius: 10px; 
     width: 200px; 
     height: 100px;
@@ -17,11 +17,12 @@
     align-items: flex-start; 
   }
 
-  input[type='text'] {
-    border: 1px solid #ccc; 
+  .search-inp {
+    padding: 10px;
+    width: 95%;
+    border: 1px solid #252828; 
     font-size: 16px; 
     border-radius: 10px;
-    border: none;
   }
 
   .search-icon {
@@ -46,5 +47,5 @@
     margin-top: 60px;
     margin-left: 25px;
     border-radius: 5px; 
-    font-size: 16px; 
+    font-size: 16px;
   }

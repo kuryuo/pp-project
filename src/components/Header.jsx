@@ -10,6 +10,8 @@ function Header() {
           <li><Link to="/accuser">Личный кабинет респондент</Link></li>
           <li><Link to="/accompany">Личный кабинет компания</Link></li>
           <li><Link to="/survlist">Опросы</Link></li>
+          <li><Link to="/survcreate">Создать опрос</Link></li>
+          <li><Link to="/survpass">Пройти опрос</Link></li>
         </ul>
       </nav>
     </header>

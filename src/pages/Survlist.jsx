@@ -24,7 +24,7 @@ function RecommendedSurveys() {
     <div className='recommended-surveys'>
       <Header/>
       <div className="search-container">
-        <input ref={searchInputRef} type='text' placeholder='Поиск...' value={search} onChange={e => setSearch(e.target.value)} />
+        <input className='search-inp' ref={searchInputRef} type='text' placeholder='Поиск...' value={search} onChange={e => setSearch(e.target.value)} />
         <img
           src={searchsvg}
           alt="search"

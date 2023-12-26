@@ -1,0 +1,105 @@
+.create-surv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    margin: 0 auto; 
+    margin-top: 100px;
+    background-color: #A8D0E6;
+    border-radius: 10px;
+  }
+
+  .surv-title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    color: #043133;
+    margin-bottom: 20px;
+  }
+
+  .surv-title-inp{
+    width: 85%;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    box-sizing: border-box;
+    margin: 5px;
+  }
+
+  .button-serv-cont{
+    display:flex;
+    justify-content: space-between; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    gap:20px;
+  }
+
+  .button-serv{
+    margin-top:10px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius:10px;
+    padding: 10px 20px;
+  } 
+
+  .create-question {
+    display: flex;
+    flex-direction: column; 
+    width: 85%;
+    margin: 20px;
+  }
+
+  .del-ques{
+    margin-top:10px;
+    background-color: #FFFFFF;
+    border: none;
+    margin-left:10px;
+    border-radius: 5px;
+  }
+
+  .select-ques{
+    border: none;
+    border-radius: 10px;
+    margin-right: 350px; 
+    margin-left: 20px;
+    padding: 5px 10px;
+  }
+  
+  .quest-row{
+    display: flex;
+    flex-direction: row;
+    background-color: #A8D0E6;
+    justify-content: flex-start; 
+    align-items:center; 
+  }
+
+  .quest-num{
+    margin: 10px;
+  }
+
+  .count-ques{
+    display: flex;
+    justify-content: space-between; 
+    width: 250px;
+    height: 30px;
+    margin-left: 130px;
+  }
+
+  input[type='number']{
+    width: 35px;
+    height: 20px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+  }
+
+  .min-max{
+    font-size: 14px;
+  }
+
+
+  
+  
