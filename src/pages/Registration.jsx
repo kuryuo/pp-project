@@ -36,7 +36,7 @@ function Registration() {
           </div>
           </div>
           <button type="submit">Зарегистрироваться</button>
-          <p className='p-auth'>Уже есть аккаунт?<a href="/login">Вход</a></p> {/* Добавлен текст "Нет аккаунта? Регистрация" */}
+          <p className='p-auth'>Уже есть аккаунт?<a href="/login">Вход</a></p> 
         </form>
       </div>
     </>

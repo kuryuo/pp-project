@@ -52,7 +52,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 
 button[type="submit"] {
   padding: 10px 40px;
-  background-color: #007074;
+  background-color: #374785;
   color: #FFFFFF;
   border: none;
   cursor: pointer;
@@ -61,7 +61,7 @@ button[type="submit"] {
 }
   
   button[type="submit"]:hover {
-    background-color: #074C4E;
+    background-color: #0D2068;
   }
 
   button[type="button"]{

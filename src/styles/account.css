@@ -1,0 +1,54 @@
+.user-profile{
+    display:grid;
+    grid-template-columns: 2fr 7fr;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+}
+
+.user-info{
+    display: flex;
+    flex-direction: column;
+    background-color: #A8D0E6;
+    border-radius: 10px;
+    margin-top:70px;
+    margin-left: 20px;
+    padding: 20px 10px;
+}
+
+.surveys{
+    display: flex;
+    flex-direction:column;
+    margin: 70px;
+}
+
+.survey-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    gap: 20px;
+  }
+
+  .survey-list li {
+    background-color: #FFFFFF; 
+    padding: 20px; 
+    border: 5px solid #374785;
+    border-radius: 10px; 
+    width: 200px; 
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+  }
+
+  .logout{
+    border:none;
+    background-color: #374785;
+    color:#FFFFFF;
+    padding: 10px 20px;
+    border-radius: 10px;
+  }
+
+    .logout:hover{
+        background-color: #0D2068;
+        color:#FFFFFF;
+    }
