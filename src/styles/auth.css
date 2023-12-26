@@ -75,13 +75,6 @@ button[type="submit"] {
     background-color: #D4D4D4;
   }
 
-  .button-container {
-    display: flex;
-    flex-direction: row; 
-    align-self: flex-start; 
-    gap:20px;
-  }
-
   .p-auth{
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
