@@ -36,11 +36,11 @@ function Registration() {
           <div className='label-container'>
           <label>
             Почта
-            <input type="email" placeholder="Введите почту" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input className='auth-inp' type="email" placeholder="Введите почту" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
             Пароль
-            <input type="password" placeholder="Введите пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input className='auth-inp' type="password" placeholder="Введите пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
           </div>
           <button type="submit">Зарегистрироваться</button>

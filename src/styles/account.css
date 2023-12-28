@@ -1,6 +1,6 @@
 .user-profile{
     display:grid;
-    grid-template-columns: 2fr 7fr;
+    grid-template-columns: 3fr 7fr;
     font-family: 'Poppins', sans-serif;
     font-weight: normal;
 }
@@ -46,9 +46,61 @@
     color:#FFFFFF;
     padding: 10px 20px;
     border-radius: 10px;
+    margin-left: 40%;
+    margin-top: 20px;
   }
 
     .logout:hover{
         background-color: #252828;
         color:#FFFFFF;
     }
+
+    .user-edit {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .edit {
+      width: 20px;
+      height: 20px;
+      margin-left: 200px;
+      object-fit: contain;
+      transition: transform 0.1s ease;
+    }
+
+    .edit:active {
+      transform: scale(0.9);
+    }
+    
+    .modal{
+      display: flex;
+      width: 50%;
+      height: 600px;
+      background-color: #A8D0E6;
+      border-radius: 10px;
+      margin: auto;
+      margin-top: 50px;
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .user-info p{
+      margin: 5px;
+    }
+
+    .save{
+      border:none;
+      background-color: #474A4A;
+      color:#FFFFFF;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .save:hover{
+      background-color: #252828;
+      color:#FFFFFF;
+  }
+
+  
