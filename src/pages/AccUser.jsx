@@ -37,7 +37,7 @@ function UserProfile() {
   const handleEditClick = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://192.168.122.49:8080/api/users/me/edit', user, {
+      const response = await axios.post('http://localhost:8080/api/users/me/edit', user, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -139,7 +139,7 @@ function UserProfile() {
     event.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://192.168.122.49:8080/api/users/me', formData, {
+      const response = await axios.post('http://localhost:8080/api/users/me', formData, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
