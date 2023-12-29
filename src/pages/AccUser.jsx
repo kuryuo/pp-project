@@ -176,30 +176,6 @@ function UserProfile() {
     'BuyingHouseholdGoods'
   ];
   
-  <label>
-    Хобби:
-    {hobbiesList.map((hobby, index) => (
-      <div key={index}>
-        <input
-          type="checkbox"
-          checked={user.hobbies.includes(index)}
-          onChange={e => {
-            if (e.target.checked) {
-              setUser({...user, hobbies: [...user.hobbies, index]});
-            } else {
-              setUser({...user, hobbies: user.hobbies.filter(hobbyIndex => hobbyIndex !== index)});
-            }
-          }}
-        />
-        {hobby}
-      </div>
-    ))}
-  </label>
-
-
-
-
-
 
 return (
   <div className='user-profile'>
@@ -357,12 +333,12 @@ return (
                   <div key={index}>
                     <input
                       type="checkbox"
-                      checked={user?.hobbies?.includes(index)}
+                      checked={user?.hobbies?.includes(hobby)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, hobbies: [...user?.hobbies, index]});
+                          setUser({...user, hobbies: [...user?.hobbies, hobby]});
                         } else {
-                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyIndex => hobbyIndex !== index)});
+                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyItem => hobbyItem !== hobby)});
                         }
                       }}
                     />
@@ -376,12 +352,12 @@ return (
                   <div key={index}>
                     <input
                       type="checkbox"
-                      checked={user?.habits?.includes(index)}
+                      checked={user?.habits?.includes(habit)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, habits: [...user?.habits, index]});
+                          setUser({...user, habits: [...user?.habits, habit]});
                         } else {
-                          setUser({...user, habits: user?.habits?.filter(habitIndex => habitIndex !== index)});
+                          setUser({...user, habits: user?.habits?.filter(habitItem => habitItem !== habit)});
                         }
                       }}
                     />
