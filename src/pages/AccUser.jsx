@@ -111,7 +111,7 @@ function UserProfile() {
       });
 
       if (response.status === 200) {
-        navigate('/acсompany'); 
+        navigate('/accompany'); 
       } else {
         console.error(response.status, response.statusText);
       }
