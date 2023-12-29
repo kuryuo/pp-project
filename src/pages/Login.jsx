@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 import '../styles/auth.css';
 import auth from '../images/auth.jpg';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +22,9 @@ function Login() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
       console.log(`Email: ${email}, Password: ${password}`);
-      console.log(`Token: ${response.data.token}`); 
+      console.log(`Token: ${response.data.token}`);
+
+      navigate('/accuser'); 
     } catch (error) {
       console.error(error);
     }
