@@ -13,28 +13,45 @@ function CompanyProfile() {
     surveys: []
   });
 
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/company/my', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (response.status === 200) {
-          setCompany(response.data);
-        } else {
-          console.error(response.status, response.statusText);
+  const fetchCompanyData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:8080/api/company/my', {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-      } catch (error) {
-        console.error(error);
+      });
+      if (response.status === 200) {
+        setCompany(response.data);
+      } else {
+        console.error(response.status, response.statusText);
       }
-    };
-  
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchCompanyData();
   }, []);
 
+  const addUserToCompany = async (userId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`http://localhost:8080/api/company/addUserById/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        fetchCompanyData();
+      } else {
+        console.error(response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className='user-profile'>
@@ -44,6 +61,7 @@ function CompanyProfile() {
             <p>Информация о компании</p>
             <p>Название: {company.name}</p>
             <button className='logout'>Выйти</button>
+            <button onClick={() => addUserToCompany(1)}>Добавить пользователя</button> 
          </div>
         {/* <div className='surveys'>
             <h3>Статистика созданных опросов</h3>
