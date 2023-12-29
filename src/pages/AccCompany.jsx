@@ -1,19 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 import '../styles/account.css';
 import Header from '../components/Header';
+import axios from 'axios';
+
 
 function CompanyProfile() {
-  // данные из api
-  const user = {
-    name: 'Иван Иванов',
-    email: 'ivan@example.com',
-    createdSurveysStats: ['Статистика 1', 'Статистика 2', 'Статистика 3','Опрос 4', 'Опрос 5']
-  };
+  const [company, setCompany] = useState({
+    id: 1,
+    name: 'Компания 1',
+    workers: [],
+    surveys: []
+  });
 
-  const logout = () => {
-    //удалить токен из localStorage
-  };
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:8080/api/company/my', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.status === 200) {
+          setCompany(response.data);
+        } else {
+          console.error(response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchCompanyData();
+  }, []);
+
 
   return (
     <div className='user-profile'>
@@ -21,20 +42,17 @@ function CompanyProfile() {
          <div className='user-info'>
             <h3>Личный кабинет</h3>
             <p>Информация о компании</p>
-            <p>Название: {user.name}</p>
-            <p>Email: {user.email}</p>
-            <Link to="/" onClick={logout}>
+            <p>Название: {company.name}</p>
             <button className='logout'>Выйти</button>
-            </Link>
          </div>
-        <div className='surveys'>
+        {/* <div className='surveys'>
             <h3>Статистика созданных опросов</h3>
             <ul className='survey-list'>
               {user.createdSurveysStats.map((stat, index) => (
               <li key={index}>{stat}</li>
               ))}
               </ul>
-        </div>
+        </div> */}
     </div>
   );
 }
