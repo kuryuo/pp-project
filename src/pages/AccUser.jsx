@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import axios from 'axios';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+// import { Link } from 'react-router-dom';
 
 import '../styles/account.css';
 import Header from '../components/Header';
@@ -9,7 +10,7 @@ import Header from '../components/Header';
 import edit from '../images/edit.svg';
 
 function UserProfile() {
-  const user = {
+  const [user, setUser] = useState({
     id: 1,
     email: 'user1',
     password: null,
@@ -26,31 +27,72 @@ function UserProfile() {
     makingPurchasesOnline: false,
     recommendedSurveys: ['Опрос 1', 'Опрос 2', 'Опрос 3'],
     completedSurveys: ['Опрос 4', 'Опрос 5']
-  };
+  });
 
-  const logout = () => {
-    //del токен из localStorage
-  };
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:8080/api/users/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.status === 200) {
+          setUser(response.data);
+        } else {
+          console.error(response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const handleEditClick = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://192.168.122.49:8080/api/users/me/edit', user, {
+      const response = await axios.post('http://localhost:8080/api/users/me/edit', user, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       if (response.status === 200) {
         console.log(response.data);
+        await getUserData(token);
       } else {
         console.error(response.status, response.statusText);
       }
-      // setModalIsOpen(true);
     } catch (error) {
       console.error(error);
     }
+    setModalIsOpen(true);
+  };
+  
+  const getUserData = async (token) => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/users/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.status === 200) {
+        setUser(response.data);
+      } else {
+        console.error(response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
     setModalIsOpen(true);
   };
 
@@ -58,23 +100,7 @@ function UserProfile() {
     setModalIsOpen(false);
   };
 
-  const [formData, setFormData] = useState({
-    fullName: user.fullName,
-    educationLevel: user.educationLevel,
-    income: user.income,
-    city: user.city,
-    hobbies: user.hobbies,
-    habits: user.habits
-  });
-  
-  const handleInputChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  const hobbies = [
+  const hobbiesList = [
     'CarTourism',
     'VideoGames',
     'Golf',
@@ -99,19 +125,8 @@ function UserProfile() {
     'ExtremeSports',
     'Cars'
   ];
-  
-  const handleInputChangeHobbies = (event) => {
-    const { name } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      hobbies: {
-        ...prevState.hobbies,
-        [name]: !prevState.hobbies[name]
-      }
-    }));
-  };
-  
-  const habits = [
+
+  const habitsList = [
     'BuyingFood',
     'BuyingClothesAndShoes',
     'VisitingRestaurantsAndCafes',
@@ -123,49 +138,44 @@ function UserProfile() {
     'VisitingCinemasAndTheaters',
     'BuyingHouseholdGoods'
   ];
-
-  const handleInputChangeHabits = (event) => {
-    const { name } = event.target;
-    setFormData(prevState => ({
-      ...prevState,
-      habits: {
-        ...prevState.habits,
-        [name]: !prevState.habits[name]
-      }
-    }));
-  };
   
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post('http://192.168.122.49:8080/api/users/me', formData, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.status === 200) {
-        console.log(response.data);
-      } else {
-        console.error(response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    closeModal();
-  };
+  <label>
+    Хобби:
+    {hobbiesList.map((hobby, index) => (
+      <div key={index}>
+        <input
+          type="checkbox"
+          checked={user.hobbies.includes(index)}
+          onChange={e => {
+            if (e.target.checked) {
+              setUser({...user, hobbies: [...user.hobbies, index]});
+            } else {
+              setUser({...user, hobbies: user.hobbies.filter(hobbyIndex => hobbyIndex !== index)});
+            }
+          }}
+        />
+        {hobby}
+      </div>
+    ))}
+  </label>
+
+
+
+
+
 
   return (
     <div className='user-profile'>
-        <Header/>
+      <Header/>
         <div className='user-info'>
           <div className='user-edit'>
             <h3>Личный кабинет 
-            <img src={edit} alt='Редактировать' className='edit' onClick={handleEditClick}/> 
+            <img src={edit} alt='Редактировать' className='edit' onClick={openModal}/> 
             </h3>
           </div>
-            <p>Имя: {user.fullName}</p>
             <p>Email: {user.email}</p>
+            <p>Пароль: {user.password}</p>
+            <p>ФИО: {user.fullName}</p>
             <p>Пол: {user.sex === 'M' ? 'Мужской' : 'Женский'}</p>
             <p>Дата рождения: {new Date(user.dateOfBirth).toISOString().split('T')[0]}</p>
             <p>Уровень образования: {
@@ -213,15 +223,6 @@ function UserProfile() {
                     'Другое'
                 ].includes(user.city) ? user.city : 'Неизвестный город'
             }</p>
-            <p>Часто ли совершает покупки: {user.makingPurchasesOnline ? 'Да' : 'Нет'}</p>
-            <p>Роль: {
-                [
-                    'User',
-                    'Interviewer',
-                    'CompanyOwner',
-                    'Admin'
-                ][user.role]
-            }</p>
             <p>Хобби: {
                 user.hobbies.map(hobbyIndex => [
                     'CarTourism',
@@ -263,90 +264,105 @@ function UserProfile() {
                     'BuyingHouseholdGoods'
                 ][habitIndex]).join(', ')
             }</p>
-<p>Покупки: {user.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
-        <Link to="/" onClick={logout}>
-          <button className='logout'>Выйти</button>
-        </Link>
-      </div>
-      <Modal
-  className={"modal"}
-  isOpen={modalIsOpen}
-  onRequestClose={closeModal}
-  contentLabel="Редактирование профиля"
->
-  <form onSubmit={handleFormSubmit}>
-    <label>
-      Имя:
-      <input type="text" name="fullName" value={formData.fullName} onChange={handleInputChange} />
-    </label>
-    <label>
-      Уровень образования:
-      <select name="educationLevel" value={formData.educationLevel} onChange={handleInputChange}>
-        <option value="Нет образования">Нет образования</option>
-        <option value="Начальное образование">Начальное образование</option>
-        <option value="Основное общее образование">Основное общее образование</option>
-        <option value="Среднее общее образование">Среднее общее образование</option>
-        <option value="Среднее профессиональное образование">Среднее профессиональное образование</option>
-        <option value="Незаконченное высшее">Незаконченное высшее</option>
-        <option value="Высшее образование (бакалавриат/специалитет)">Высшее образование (бакалавриат/специалитет)</option>
-        <option value="Высшее образование (магистратура)">Высшее образование (магистратура)</option>
-        <option value="Высшее образование (аспирантура)">Высшее образование (аспирантура)</option>
-      </select>
-    </label>
-    <label>
-      Доход:
-      <input type="number" name="income" value={formData.income} onChange={handleInputChange} />
-    </label>
-    <label>
-      Город:
-      <input type="text" name="city" value={formData.city} onChange={handleInputChange} />
-    </label>
-    <label>
-      Хобби:
-      {hobbies.map(hobby => (
-        <div key={hobby}>
-          <input
-            type="checkbox"
-            name={hobby}
-            checked={!!formData.hobbies[hobby]}
-            onChange={handleInputChangeHobbies}
-          />
-          {hobby}
+            <p>Роль: {
+                [
+                    'User',
+                    'Interviewer',
+                    'CompanyOwner',
+                    'Admin'
+                ][user.role]
+            }</p>
+            <p>Покупки: {user.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
+            <button className='logout'>Выйти</button>
         </div>
-      ))}
-    </label>
-    <label>
-      Привычки:
-      {habits.map(habit => (
-        <div key={habit}>
-          <input
-            type="checkbox"
-            name={habit}
-            checked={!!formData.habits[habit]}
-            onChange={handleInputChangeHabits}
-          />
-          {habit}
+        <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            className={"modal"}
+            contentLabel="Редактирование профиля"
+          >
+            <form>
+              <label>
+                ФИО:
+                <input type="text" value={user.fullName} onChange={e => setUser({...user, fullName: e.target.value})} />
+              </label>
+              <label>
+                Уровень образования:
+                <select value={user.educationLevel} onChange={e => setUser({...user, educationLevel: e.target.value})}>
+                  <option value={0}>Нет образования</option>
+                  <option value={1}>Начальное образование</option>
+                  <option value={2}>Основное общее образование</option>
+                  <option value={3}>Среднее общее образование</option>
+                  <option value={4}>Среднее профессиональное образование</option>
+                  <option value={5}>Незаконченное высшее</option>
+                  <option value={6}>Высшее образование (бакалавриат/специалитет)</option>
+                  <option value={7}>Высшее образование (магистратура)</option>
+                  <option value={8}>Высшее образование (аспирантура)</option>
+                </select>
+              </label>
+              <label>
+                Доход:
+                <input type="text" value={user.income} onChange={e => setUser({...user, income: e.target.value})} />
+              </label>
+              <label>
+                Город:
+                <input type="text" value={user.city} onChange={e => setUser({...user, city: e.target.value})} />
+              </label>
+              <label>
+                Хобби:
+                {hobbiesList.map((hobby, index) => (
+                  <div key={index}>
+                    <input
+                      type="checkbox"
+                      checked={user.hobbies.includes(index)}
+                      onChange={e => {
+                        if (e.target.checked) {
+                          setUser({...user, hobbies: [...user.hobbies, index]});
+                        } else {
+                          setUser({...user, hobbies: user.hobbies.filter(hobbyIndex => hobbyIndex !== index)});
+                        }
+                      }}
+                    />
+                    {hobby}
+                  </div>
+                ))}
+              </label>
+              <label>
+                Привычки:
+                {habitsList.map((habit, index) => (
+                  <div key={index}>
+                    <input
+                      type="checkbox"
+                      checked={user.habits.includes(index)}
+                      onChange={e => {
+                        if (e.target.checked) {
+                          setUser({...user, habits: [...user.habits, index]});
+                        } else {
+                          setUser({...user, habits: user.habits.filter(habitIndex => habitIndex !== index)});
+                        }
+                      }}
+                    />
+                    {habit}
+                  </div>
+                ))}
+              </label>
+              <button type="submit" onClick={handleEditClick}>Сохранить</button>
+            </form>
+          </Modal>
+        <div className='surveys'>
+            <h3>Рекомендуемые опросы</h3>
+            <ul className='survey-list'>
+                {user.recommendedSurveys.map((survey, index) => (
+                <li key={index}>{survey}</li>
+                ))}
+            </ul>
+            <h3>Пройденные опросы</h3>
+            <ul className='survey-list'>
+                {user.completedSurveys.map((survey, index) => (
+                <li key={index}>{survey}</li>
+                ))}
+            </ul>
         </div>
-      ))}
-    </label>
-    <button className="save" type="submit">Сохранить</button>
-  </form>
-</Modal>
-
-      <div className='surveys'>
-        <h3>Рекомендуемые опросы</h3>
-        <ul className='survey-list'>
-          {user.recommendedSurveys.map((survey, index) => (
-            <li key={index}>{survey}</li>
-          ))}
-        </ul>
-        <h3>Пройденные опросы</h3>
-        <ul className='survey-list'>
-          {user.completedSurveys.map((survey, index) => (
-            <li key={index}>{survey}</li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }
