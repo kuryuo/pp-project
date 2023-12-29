@@ -311,7 +311,7 @@ return (
           }</p>
           <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
           <div>
-          <button onClick={handleLogout}>Выйти</button>
+          <button className='logout' onClick={handleLogout}>Выйти</button>
           </div>
           <div>
     <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
@@ -331,7 +331,7 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: e.target.value})}>
+                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
                   <option value={0}>Нет образования</option>
                   <option value={1}>Начальное образование</option>
                   <option value={2}>Основное общее образование</option>
@@ -360,9 +360,9 @@ return (
                       checked={user?.hobbies?.includes(index)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, hobbies: [...user?.hobbies, index]});
+                          setUser({...user, hobbies: [...user?.hobbies, Number(index)]});
                         } else {
-                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyIndex => hobbyIndex !== index)});
+                          setUser({...user, habits: [...user?.habits, Number(index)]});
                         }
                       }}
                     />
