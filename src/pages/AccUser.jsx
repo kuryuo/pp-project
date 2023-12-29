@@ -14,43 +14,45 @@ function UserProfile() {
   const [user, setUser] = useState({
     id: 1,
     email: 'user1',
-    password: null,
     fullName: 'gg',
     sex: 'M',
     dateOfBirth: '2003-08-02',
     educationLevel: 5,
     income: 30000,
     city: 'Москва',
-    hobbies: [2,4],
-    habits: [3,4],
+    hobbies: ["",""],
+    habits: ["",""],
     role: 2,
     answersList: [],
     makingPurchasesOnline: false,
     recommendedSurveys: ['Опрос 1', 'Опрос 2', 'Опрос 3'],
-    completedSurveys: ['Опрос 4', 'Опрос 5']
+    //completedSurveys: ['Опрос 4', 'Опрос 5']
   });
 
+//   {
+//     "id": 1,
+//     "email": "gg@gg.gg",
+//     "fullName": null,
+//     "sex": null,
+//     "dateOfBirth": null,
+//     "educationLevel": null,
+//     "income": null,
+//     "city": null,
+//     "hobbies": [],
+//     "restaurantVisitsPerWeek": null,
+//     "habits": [],
+//     "isMakingPurchasesOnline": null,
+//     "role": "User",
+//     "answersList": []
+// }
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8080/api/users/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (response.status === 200) {
-          setUser(response.data);
-        } else {
-          console.error(response.status, response.statusText);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    fetchUserData();
+    getUserData(localStorage.getItem('token'));
   }, []);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleEditClick = async () => {
     try {
@@ -80,7 +82,8 @@ function UserProfile() {
         }
       });
       if (response.status === 200) {
-        setUser(response.data || {});
+        setUser({...user, ...response.data});
+        //console.log(user);
       } else {
         console.error(response.status, response.statusText);
       }
@@ -137,31 +140,31 @@ function UserProfile() {
     setModalIsOpen(false);
   };
 
-  const hobbiesList = [
-    'CarTourism',
-    'VideoGames',
-    'Golf',
-    'CountryHouse',
-    'HealthyLifestyle',
-    'ArtAndNeedlework',
-    'Skiing',
-    'SportsActivities',
-    'Boats',
-    'Horses',
-    'Music',
-    'Interior',
-    'HuntingOrFishing',
-    'Cooking',
-    'WatchingSports',
-    'Journeys',
-    'Gardening',
-    'Technologies',
-    'TourismWithCamping',
-    'Photographing',
-    'Reading',
-    'ExtremeSports',
-    'Cars'
-  ];
+  const hobbiesList = {
+    'CarTourism': 'Автотуризм',
+    'VideoGames': 'Видеоигры',
+    'Golf': 'Гольф',
+    'CountryHouse': 'Дача',
+    'HealthyLifestyle': 'Здоровый образ жизни',
+    'ArtAndNeedlework': 'Искусство и рукоделие',
+    'Skiing': 'Лыжи',
+    'SportsActivities': 'Спортивные мероприятия',
+    'Boats': 'Лодки',
+    'Horses': 'Лошади',
+    'Music': 'Музыка',
+    'Interior': 'Интерьер',
+    'HuntingOrFishing': 'Охота или рыбалка',
+    'Cooking': 'Готовка',
+    'WatchingSports': 'Смотреть спорт',
+    'Journeys': 'Путешествия',
+    'Gardening': 'Садоводство',
+    'Technologies': 'Технологии',
+    'TourismWithCamping': 'Туризм с кемпингом',
+    'Photographing': 'Фотография',
+    'Reading':'Чтение',
+    'ExtremeSports':'Экстримальный спорт',
+    'Cars':'Машины'
+  };
 
   const habitsList = [
     'BuyingFood',
@@ -175,6 +178,19 @@ function UserProfile() {
     'VisitingCinemasAndTheaters',
     'BuyingHouseholdGoods'
   ];
+
+  const educationLevels = [
+    "Нет образования",
+    "Начальное образование",
+    "Основное общее образование",
+    "Среднее общее образование",
+    "Среднее профессиональное образование",
+    "Незаконченное высшее",
+    "Высшее образование (бакалавриат/специалитет)",
+    "Высшее образование (магистратура)",
+    "Высшее образование (аспирантура)"
+  ];
+  
   
 
 return (
@@ -192,17 +208,7 @@ return (
           <p>Пол: {user?.sex === 'M' ? 'Мужской' : 'Женский'}</p>
           <p>Дата рождения: {user?.dateOfBirth && new Date(user.dateOfBirth).toISOString().split('T')[0]}</p>
           <p>Уровень образования: {
-              user?.educationLevel && [
-                  'Нет образования',
-                  'Начальное образование',
-                  'Основное общее образование',
-                  'Среднее общее образование',
-                  'Среднее профессиональное образование',
-                  'Незаконченное высшее',
-                  'Высшее образование (бакалавриат/специалитет)',
-                  'Высшее образование (магистратура)',
-                  'Высшее образование (аспирантура)'
-              ][user.educationLevel]
+              user?.educationLevel && educationLevels[user.educationLevel]
           }</p>
           <p>Доход: {user?.income}</p>
           <p>Город: {
@@ -237,31 +243,7 @@ return (
               ].includes(user.city) ? user.city : 'Неизвестный город'
           }</p>
           <p>Хобби: {
-              user?.hobbies && user.hobbies.map(hobbyIndex => [
-                  'CarTourism',
-                  'VideoGames',
-                  'Golf',
-                  'CountryHouse',
-                  'HealthyLifestyle',
-                  'ArtAndNeedlework',
-                  'Skiing',
-                  'SportsActivities',
-                  'Boats',
-                  'Horses',
-                  'Music',
-                  'Interior',
-                  'HuntingOrFishing',
-                  'Cooking',
-                  'WatchingSports',
-                  'Journeys',
-                  'Gardening',
-                  'Technologies',
-                  'TourismWithCamping',
-                  'Photographing',
-                  'Reading',
-                  'ExtremeSports',
-                  'Cars'
-              ][hobbyIndex]).join(', ')
+              user?.hobbies && user.hobbies.map(hobbyEng => hobbiesList[hobbyEng]).join(', ')
           }</p>
           <p>Привычки: {
               user?.habits && user.habits.map(habitIndex => [
@@ -307,17 +289,11 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
-                  <option value={0}>Нет образования</option>
-                  <option value={1}>Начальное образование</option>
-                  <option value={2}>Основное общее образование</option>
-                  <option value={3}>Среднее общее образование</option>
-                  <option value={4}>Среднее профессиональное образование</option>
-                  <option value={5}>Незаконченное высшее</option>
-                  <option value={6}>Высшее образование (бакалавриат/специалитет)</option>
-                  <option value={7}>Высшее образование (магистратура)</option>
-                  <option value={8}>Высшее образование (аспирантура)</option>
-                </select>
+                <select value={educationLevels.indexOf(user?.educationLevel)} onChange={e => setUser({...user, educationLevel: educationLevels[e.target.value]})}>
+  {educationLevels.map((level, index) => (
+    <option key={index} value={index}>{level}</option>
+  ))}
+</select>
               </label>
               <label>
                 Доход:
@@ -327,7 +303,7 @@ return (
                 Город:
                 <input type="text" value={user?.city} onChange={e => setUser({...user, city: e.target.value})} />
               </label>
-              <label>
+              {/* <label>
                 Хобби:
                 {hobbiesList.map((hobby, index) => (
                   <div key={index}>
@@ -345,7 +321,7 @@ return (
                     {hobby}
                   </div>
                 ))}
-              </label>
+              </label> */}
               <label>
                 Привычки:
                 {habitsList.map((habit, index) => (
