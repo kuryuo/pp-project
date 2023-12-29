@@ -88,10 +88,11 @@ function UserProfile() {
       console.error(error);
     }
   };
-
-
   
-
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+    navigate('/login'); 
+  };
 
 
   const navigate = useNavigate();
@@ -309,7 +310,9 @@ return (
               ][user.role]
           }</p>
           <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
-          <button className='logout'>Выйти</button>
+          <div>
+          <button className='logout' onClick={handleLogout}>Выйти</button>
+          </div>
           <div>
     <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
     <button onClick={handleCreateCompany}>Создать компанию</button>
@@ -328,7 +331,7 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: e.target.value})}>
+                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
                   <option value={0}>Нет образования</option>
                   <option value={1}>Начальное образование</option>
                   <option value={2}>Основное общее образование</option>
