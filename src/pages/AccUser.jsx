@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 
 import '../styles/account.css';
@@ -87,6 +88,40 @@ function UserProfile() {
       console.error(error);
     }
   };
+
+
+  
+
+
+
+  const navigate = useNavigate();
+
+  const handleCreateCompany = async () => {
+    const companyData = {
+      name: "КоМпАнИя Ура!!!!"
+    };
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post('http://localhost:8080/api/company', companyData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 200) {
+        navigate('/accCompany');
+      } else {
+        console.error(response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
+  };
+
+
+
+
 
 
 
@@ -274,6 +309,7 @@ function UserProfile() {
             }</p>
             <p>Покупки: {user.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
             <button className='logout'>Выйти</button>
+            <button onClick={handleCreateCompany}>Создать компанию</button>
         </div>
         <Modal
             isOpen={modalIsOpen}
