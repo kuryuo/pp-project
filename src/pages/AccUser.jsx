@@ -95,10 +95,11 @@ function UserProfile() {
 
 
   const navigate = useNavigate();
+  const [companyName, setCompanyName] = useState('');
 
   const handleCreateCompany = async () => {
     const companyData = {
-      name: "КоМпАнИя Ура!!!!"
+      name: companyName
     };
 
     try {
@@ -110,7 +111,7 @@ function UserProfile() {
       });
 
       if (response.status === 200) {
-        navigate('/accCompany');
+        navigate('/acсompany'); 
       } else {
         console.error(response.status, response.statusText);
       }
@@ -309,7 +310,10 @@ return (
           }</p>
           <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
           <button className='logout'>Выйти</button>
-          <button onClick={handleCreateCompany}>Создать компанию</button>
+          <div>
+    <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
+    <button onClick={handleCreateCompany}>Создать компанию</button>
+  </div>
       </div>
       <Modal
             isOpen={modalIsOpen}
@@ -385,7 +389,7 @@ return (
               <button type="submit" onClick={handleEditClick}>Сохранить</button>
             </form>
           </Modal>
-        <div className='surveys'>
+        {/* <div className='surveys'>
             <h3>Рекомендуемые опросы</h3>
             <ul className='survey-list'>
                 {user.recommendedSurveys.map((survey, index) => (
@@ -398,7 +402,7 @@ return (
                 <li key={index}>{survey}</li>
                 ))}
             </ul>
-        </div>
+        </div> */}
     </div>
   );
 }
