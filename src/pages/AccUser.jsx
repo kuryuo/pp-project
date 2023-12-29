@@ -360,9 +360,9 @@ return (
                       checked={user?.hobbies?.includes(index)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, hobbies: [...user?.hobbies, Number(index)]});
+                          setUser({...user, hobbies: [...user?.hobbies, index]});
                         } else {
-                          setUser({...user, habits: [...user?.habits, Number(index)]});
+                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyIndex => hobbyIndex !== index)});
                         }
                       }}
                     />
