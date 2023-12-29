@@ -88,10 +88,11 @@ function UserProfile() {
       console.error(error);
     }
   };
-
-
   
-
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+    navigate('/login'); 
+  };
 
 
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ function UserProfile() {
       });
 
       if (response.status === 200) {
-        navigate('/acсompany'); 
+        navigate('/accompany'); 
       } else {
         console.error(response.status, response.statusText);
       }
@@ -309,7 +310,9 @@ return (
               ][user.role]
           }</p>
           <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
-          <button className='logout'>Выйти</button>
+          <div>
+          <button onClick={handleLogout}>Выйти</button>
+          </div>
           <div>
     <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
     <button onClick={handleCreateCompany}>Создать компанию</button>
