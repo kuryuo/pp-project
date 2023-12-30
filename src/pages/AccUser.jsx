@@ -31,17 +31,17 @@ function UserProfile() {
 
 //   {
 //     "id": 1,
-//     "email": "gg@gg.gg",
-//     "fullName": null,
-//     "sex": null,
-//     "dateOfBirth": null,
-//     "educationLevel": null,
-//     "income": null,
-//     "city": null,
-//     "hobbies": [],
-//     "restaurantVisitsPerWeek": null,
-//     "habits": [],
-//     "isMakingPurchasesOnline": null,
+//     "email": "gg@gg.gg", >
+//     "fullName": null, >?
+//     "sex": null, >
+//     "dateOfBirth": null, >
+//     "educationLevel": null, >?
+//     "income": null, >?
+//     "city": null, >?
+//     "hobbies": [], >?
+//     "restaurantVisitsPerWeek": null, >?
+//     "habits": [], >?
+//     "isMakingPurchasesOnline": null, >?
 //     "role": "User",
 //     "answersList": []
 // }
@@ -159,7 +159,7 @@ function UserProfile() {
     'Journeys': 'Путешествия',
     'Gardening': 'Садоводство',
     'Technologies': 'Технологии',
-    'TourismWithCamping': 'Туризм с кемпингом',
+    'TourismWithCamping': 'Туризм c кемпингом',
     'Photographing': 'Фотография',
     'Reading':'Чтение',
     'ExtremeSports':'Экстримальный спорт',
@@ -303,7 +303,7 @@ return (
                 Город:
                 <input type="text" value={user?.city} onChange={e => setUser({...user, city: e.target.value})} />
               </label>
-              {/* <label>
+              <label>
                 Хобби:
                 {hobbiesList.map((hobby, index) => (
                   <div key={index}>
@@ -321,7 +321,7 @@ return (
                     {hobby}
                   </div>
                 ))}
-              </label> */}
+              </label>
               <label>
                 Привычки:
                 {habitsList.map((habit, index) => (
