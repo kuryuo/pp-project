@@ -290,7 +290,7 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={educationLevels.indexOf(user?.educationLevel)} onChange={e => setUser({...user, educationLevel: educationLevels[e.target.value]})}>
+                <select value={educationLevels.indexOf(user?.educationLevel)} onChange={e => setUser({...user, educationLevel: e.target.value})}>
                   {educationLevels.map((level, index) => (
                     <option key={index} value={index}>{level}</option>
                   ))}
