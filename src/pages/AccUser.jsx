@@ -20,16 +20,15 @@ function UserProfile() {
     educationLevel: 5,
     income: 30000,
     city: 'Москва',
-    hobbies: ["",""],
-    habits: ["",""],
+    hobbies: ["VideoGames"],
+    habits: ["BuyingFood","VisitingCinemasAndTheaters"],
     role: 2,
     answersList: [],
     makingPurchasesOnline: false,
     recommendedSurveys: ['Опрос 1', 'Опрос 2', 'Опрос 3'],
-    //completedSurveys: ['Опрос 4', 'Опрос 5']
   });
 
-//   {
+  //   {
 //     "id": 1,
 //     "email": "gg@gg.gg", >
 //     "fullName": null, >?
@@ -48,7 +47,7 @@ function UserProfile() {
 
   useEffect(() => {
     getUserData(localStorage.getItem('token'));
-  }, []);
+  }, []); 
 
   useEffect(() => {
     console.log(user);
@@ -97,7 +96,6 @@ function UserProfile() {
     navigate('/login'); 
   };
 
-
   const navigate = useNavigate();
   const [companyName, setCompanyName] = useState('');
 
@@ -123,12 +121,6 @@ function UserProfile() {
       console.error('Ошибка:', error);
     }
   };
-
-
-
-
-
-
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -166,18 +158,18 @@ function UserProfile() {
     'Cars':'Машины'
   };
 
-  const habitsList = [
-    'BuyingFood',
-    'BuyingClothesAndShoes',
-    'VisitingRestaurantsAndCafes',
-    'TravelAndVacations',
-    'PurchaseOfHouseholdAppliances',
-    'AttendingSportsEvents',
-    'PurchaseOfCosmetics',
-    'BuyingBooksAndMusic',
-    'VisitingCinemasAndTheaters',
-    'BuyingHouseholdGoods'
-  ];
+  const habitsList = {
+    'BuyingFood': 'Покупка еды',
+    'BuyingClothesAndShoes': 'Покупка одежды и обуви',
+    'VisitingRestaurantsAndCafes': 'Посещение ресторанов и кафе',
+    'TravelAndVacations': 'Путешествия и отпуск',
+    'PurchaseOfHouseholdAppliances': 'Покупка бытовой техники',
+    'AttendingSportsEvents': 'Посещение спортивных мероприятий',
+    'PurchaseOfCosmetics': 'Покупка косметики',
+    'BuyingBooksAndMusic': 'Покупка книг и музыки',
+    'VisitingCinemasAndTheaters': 'Посещение кинотеатров и театров',
+    'BuyingHouseholdGoods': 'Покупка товаров для дома'
+  };
 
   const educationLevels = [
     "Нет образования",
@@ -190,8 +182,6 @@ function UserProfile() {
     "Высшее образование (магистратура)",
     "Высшее образование (аспирантура)"
   ];
-  
-  
 
 return (
   <div className='user-profile'>
@@ -203,7 +193,6 @@ return (
           </h3>
         </div>
           <p>Email: {user?.email}</p>
-          <p>Пароль: {user?.password}</p>
           <p>ФИО: {user?.fullName}</p>
           <p>Пол: {user?.sex === 'M' ? 'Мужской' : 'Женский'}</p>
           <p>Дата рождения: {user?.dateOfBirth && new Date(user.dateOfBirth).toISOString().split('T')[0]}</p>
@@ -246,36 +235,19 @@ return (
               user?.hobbies && user.hobbies.map(hobbyEng => hobbiesList[hobbyEng]).join(', ')
           }</p>
           <p>Привычки: {
-              user?.habits && user.habits.map(habitIndex => [
-                  'BuyingFood',
-                  'BuyingClothesAndShoes',
-                  'VisitingRestaurantsAndCafes',
-                  'TravelAndVacations',
-                  'PurchaseOfHouseholdAppliances',
-                  'AttendingSportsEvents',
-                  'PurchaseOfCosmetics',
-                  'BuyingBooksAndMusic',
-                  'VisitingCinemasAndTheaters',
-                  'BuyingHouseholdGoods'
-              ][habitIndex]).join(', ')
-          }</p>
-          <p>Роль: {
-              user?.role && [
-                  'User',
-                  'Interviewer',
-                  'CompanyOwner',
-                  'Admin'
-              ][user.role]
+              user?.habits && user.habits.map(habitEng => habitsList[habitEng]).join(', ')
           }</p>
           <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
-          <div>
-          <button className='logout' onClick={handleLogout}>Выйти</button>
-          </div>
-          <div>
-    <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
-    <button onClick={handleCreateCompany}>Создать компанию</button>
-  </div>
+              <div>
+                <button className='logout' onClick={handleLogout}>Выйти</button>
+              </div>
+              <div>
+          <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} placeholder="Введите название компании" />
+          <button onClick={handleCreateCompany}>Создать компанию</button>
+              </div>
       </div>
+
+
       <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
@@ -290,10 +262,10 @@ return (
               <label>
                 Уровень образования:
                 <select value={educationLevels.indexOf(user?.educationLevel)} onChange={e => setUser({...user, educationLevel: educationLevels[e.target.value]})}>
-  {educationLevels.map((level, index) => (
-    <option key={index} value={index}>{level}</option>
-  ))}
-</select>
+                  {educationLevels.map((level, index) => (
+                    <option key={index} value={index}>{level}</option>
+                  ))}
+                </select>
               </label>
               <label>
                 Доход:
@@ -305,16 +277,16 @@ return (
               </label>
               <label>
                 Хобби:
-                {hobbiesList.map((hobby, index) => (
+                {Object.entries(hobbiesList).map(([key, hobby], index) => (
                   <div key={index}>
                     <input
                       type="checkbox"
-                      checked={user?.hobbies?.includes(hobby)}
+                      checked={user?.hobbies?.includes(key)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, hobbies: [...user?.hobbies, hobby]});
+                          setUser({...user, hobbies: [...user?.hobbies, key]});
                         } else {
-                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyItem => hobbyItem !== hobby)});
+                          setUser({...user, hobbies: user?.hobbies?.filter(hobbyItem => hobbyItem !== key)});
                         }
                       }}
                     />
@@ -324,16 +296,16 @@ return (
               </label>
               <label>
                 Привычки:
-                {habitsList.map((habit, index) => (
+                {Object.entries(habitsList).map(([key, habit], index) => (
                   <div key={index}>
                     <input
                       type="checkbox"
-                      checked={user?.habits?.includes(habit)}
+                      checked={user?.habits?.includes(key)}
                       onChange={e => {
                         if (e.target.checked) {
-                          setUser({...user, habits: [...user?.habits, habit]});
+                          setUser({...user, habits: [...user?.habits, key]});
                         } else {
-                          setUser({...user, habits: user?.habits?.filter(habitItem => habitItem !== habit)});
+                          setUser({...user, habits: user?.habits?.filter(habitItem => habitItem !== key)});
                         }
                       }}
                     />
