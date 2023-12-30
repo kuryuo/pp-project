@@ -21,6 +21,7 @@ function UserProfile() {
     income: 30000,
     city: 'Москва',
     hobbies: ["VideoGames"],
+    restaurantVisitsPerWeek: 1,
     habits: ["BuyingFood","VisitingCinemasAndTheaters"],
     role: 2,
     answersList: [],
@@ -28,22 +29,18 @@ function UserProfile() {
     recommendedSurveys: ['Опрос 1', 'Опрос 2', 'Опрос 3'],
   });
 
-  //   {
-//     "id": 1,
-//     "email": "gg@gg.gg",
-//     "fullName": null,
-//     "sex": null,
-//     "dateOfBirth": null,
-//     "educationLevel": null,
-//     "income": null,
-//     "city": null,
-//     "hobbies": [],
-//     "restaurantVisitsPerWeek": null,
-//     "habits": [],
-//     "isMakingPurchasesOnline": null,
-//     "role": "User",
-//     "answersList": []
-// }
+
+//     "fullName": null, >?
+//     "sex": null, >?
+//     "dateOfBirth": null, >?
+//     "educationLevel": null, >?
+//     "income": null, >?
+//     "city": null, >?
+//     "hobbies": [], >?
+//     "restaurantVisitsPerWeek": null, >?
+//     "habits": [], >?
+//     "isMakingPurchasesOnline": null, >?
+
 
   useEffect(() => {
     getUserData(localStorage.getItem('token'));
@@ -234,6 +231,7 @@ return (
           <p>Хобби: {
               user?.hobbies && user.hobbies.map(hobbyEng => hobbiesList[hobbyEng]).join(', ')
           }</p>
+          <p>Посещение ресторанов и кафе: {user?.restaurantVisitsPerWeek}</p>
           <p>Привычки: {
               user?.habits && user.habits.map(habitEng => habitsList[habitEng]).join(', ')
           }</p>
@@ -260,6 +258,37 @@ return (
                 <input type="text" value={user?.fullName} onChange={e => setUser({...user, fullName: e.target.value})} />
               </label>
               <label>
+                Пол:
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      value="M"
+                      checked={user?.sex === 'M'}
+                      onChange={e => setUser({...user, sex: e.target.value})}
+                    />
+                    Мужской              
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="F"
+                      checked={user?.sex === 'F'}
+                      onChange={e => setUser({...user, sex: e.target.value})}
+                    />
+                    Женский
+                  </label>
+                </div>
+              </label>
+              <label>
+                Дата рождения:
+                <input
+                  type="date"
+                  value={user?.dateOfBirth}
+                  onChange={e => setUser({...user, dateOfBirth: e.target.value})}
+                />
+              </label>
+              <label>
                 Уровень образования:
                 <select value={educationLevels.indexOf(user?.educationLevel)} onChange={e => setUser({...user, educationLevel: educationLevels[e.target.value]})}>
                   {educationLevels.map((level, index) => (
@@ -273,7 +302,42 @@ return (
               </label>
               <label>
                 Город:
-                <input type="text" value={user?.city} onChange={e => setUser({...user, city: e.target.value})} />
+                <select value={user?.city} onChange={e => setUser({...user, city: e.target.value})}>
+                  <option value="">Выберите город</option>
+                  {[
+                    'Москва',
+                    'Санкт-Петербург',
+                    'Казань',
+                    'Екатеринбург',
+                    'Новосибирск',
+                    'Красноярск',
+                    'Ростов-на-Дону',
+                    'Челябинск',
+                    'Уфа',
+                    'Самара',
+                    'Омск',
+                    'Воронеж',
+                    'Иркутск',
+                    'Волгоград',
+                    'Краснодар',
+                    'Нижний Новгород',
+                    'Кемерово',
+                    'Тюмень',
+                    'Барнаул',
+                    'Томск',
+                    'Курск',
+                    'Астрахань',
+                    'Пенза',
+                    'Липецк',
+                    'Киров',
+                    'Ярославль',
+                    'Другое'
+                  ].map(city => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
               </label>
               <label>
                 Хобби:
@@ -293,7 +357,11 @@ return (
                     {hobby}
                   </div>
                 ))}
-              </label>              
+              </label>  
+              <label>
+                Посещение ресторанов и кафе:
+                <input type="text" value={user?.restaurantVisitsPerWeek} onChange={e => setUser({...user, restaurantVisitsPerWeek: e.target.value})} />
+              </label>            
               <label>
                 Привычки:
                 {Object.entries(habitsList).map(([key, habit], index) => (
@@ -312,6 +380,29 @@ return (
                     {habit}
                   </div>
                 ))}
+              </label>
+              <label>
+                Покупки:
+                <div>
+                  <label>
+                    <input
+                      type="radio"
+                      value="true"
+                      checked={user?.makingPurchasesOnline}
+                      onChange={e => setUser({...user, makingPurchasesOnline: e.target.value === 'true'})}
+                    />
+                    Онлайн              
+                  </label>
+                  <label>
+                    <input
+                      type="radio"
+                      value="false"
+                      checked={!user?.makingPurchasesOnline}
+                      onChange={e => setUser({...user, makingPurchasesOnline: e.target.value === 'true'})}
+                    />
+                    Лично
+                  </label>
+                </div>
               </label>
               <button type="submit" onClick={handleEditClick}>Сохранить</button>
             </form>
