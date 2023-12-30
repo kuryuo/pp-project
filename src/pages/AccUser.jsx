@@ -25,7 +25,7 @@ function UserProfile() {
     habits: ["BuyingFood","VisitingCinemasAndTheaters"],
     role: 2,
     answersList: [],
-    makingPurchasesOnline: false,
+    isMakingPurchasesOnline: false,
     recommendedSurveys: ['Опрос 1', 'Опрос 2', 'Опрос 3'],
   });
 
@@ -239,7 +239,7 @@ return (
           <p>Привычки: {
               user?.habits && user.habits.map(habitEng => habitsList[habitEng]).join(', ')
           }</p>
-          <p>Покупки: {user?.makingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
+          <p>Покупки: {user?.isMakingPurchasesOnline ? 'Онлайн' : 'Лично'}</p>
               <div>
                 <button className='logout' onClick={handleLogout}>Выйти</button>
               </div>
@@ -294,7 +294,7 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={educationLevels[user?.educationLevel]} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
+                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
                   {educationLevels.map((level, index) => (
                     <option key={index} value={index}>{level}</option>
                   ))}
@@ -388,8 +388,8 @@ return (
                     <input
                       type="radio"
                       value="true"
-                      checked={user?.makingPurchasesOnline}
-                      onChange={e => setUser({...user, makingPurchasesOnline: e.target.value === 'true'})}
+                      checked={user?.isMakingPurchasesOnline}
+                      onChange={e => setUser({...user, isMakingPurchasesOnline: e.target.value === 'true'})}
                     />
                     Онлайн              
                   </label>
@@ -397,8 +397,8 @@ return (
                     <input
                       type="radio"
                       value="false"
-                      checked={!user?.makingPurchasesOnline}
-                      onChange={e => setUser({...user, makingPurchasesOnline: e.target.value === 'true'})}
+                      checked={!user?.isMakingPurchasesOnline}
+                      onChange={e => setUser({...user, isMakingPurchasesOnline: e.target.value === 'true'})}
                     />
                     Лично
                   </label>
