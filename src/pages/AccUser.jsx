@@ -294,7 +294,7 @@ return (
               </label>
               <label>
                 Уровень образования:
-                <select value={educationLevels[user?.educationLevel]} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
+                <select value={user?.educationLevel} onChange={e => setUser({...user, educationLevel: Number(e.target.value)})}>
                   {educationLevels.map((level, index) => (
                     <option key={index} value={index}>{level}</option>
                   ))}
@@ -361,7 +361,14 @@ return (
                     {hobby}
                   </div>
                 ))}
-              </label>              
+              </label>    
+              <label>
+                Посещение ресторанов и кафе:
+                <input
+                  type="text"
+                  value={user?.restaurantVisitsPerWeek}
+                  onChange={e => setUser({...user, restaurantVisitsPerWeek: Number(e.target.value)})}/>
+              </label>         
               <label>
                 Привычки:
                 {Object.entries(habitsList).map(([key, habit], index) => (
