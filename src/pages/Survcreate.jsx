@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+// import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import axios from 'axios';
 import '../styles/survcreate.css';
+import FilterContext from '../components/FilterContext';
 
 function SurvCreate() {
   const [title, setTitle] = useState('');
@@ -11,11 +12,14 @@ function SurvCreate() {
   const [questions, setQuestions] = useState([{ title: '', options: [''], type: 'one', minAnswers: 1, maxAnswers: 1 }]);
   const [activeQuestion, setActiveQuestion] = useState(0);
 
+  const { filter } = useContext(FilterContext);
+
   const submitSurvey = async () => {
     const surveyData = {
       title,
       category,
-      questions
+      questions,
+      filter 
     };
   
     try {
@@ -25,6 +29,7 @@ function SurvCreate() {
       console.error(error);
     }
   };
+
 
   const handleNextClick = () => {
     setStep(step + 1);

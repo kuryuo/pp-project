@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import HomeAll from './pages/HomeAll';
@@ -6,12 +7,14 @@ import AcCompany from './pages/AccCompany';
 import Survlist from './pages/Survlist';
 import SurvCreate from './pages/Survcreate';
 import SurvPass from './pages/Survpass';
+import FilterContext from './components/FilterContext'; 
 import { Route, Routes } from "react-router-dom";
 
 function App() {
+  const [filter, setFilter] = useState({});
 
   return (
-    <>
+    <FilterContext.Provider value={{ filter, setFilter }}>
       <div>
       <Routes>
       <Route path="/" element={<HomeAll/>} />
@@ -24,7 +27,7 @@ function App() {
       <Route path='/survpass' element={<SurvPass /> } />
       </Routes>
       </div>
-    </>
+    </FilterContext.Provider>
   );
 }
 
