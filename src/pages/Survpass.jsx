@@ -10,6 +10,26 @@ function SurvPass() {
       options: ['Ответ 1', 'Ответ 2', 'Ответ 3'],
       answer: null
     },
+    {
+      title: 'Вопрос 2',
+      options: ['Ответ 1', 'Ответ 2', 'Ответ 3'],
+      answer: null
+    },
+    {
+      title: 'Вопрос 3',
+      options: ['Ответ 1', 'Ответ 2', 'Ответ 3'],
+      answer: null
+    },
+    {
+      title: 'Вопрос 4',
+      options: ['Ответ 1', 'Ответ 2', 'Ответ 3'],
+      answer: null
+    },
+    {
+      title: 'Вопрос 5',
+      options: ['Ответ 1', 'Ответ 2', 'Ответ 3'],
+      answer: null
+    },
   ]);
 
   const handleOptionChange = (answer) => {
@@ -40,17 +60,18 @@ function SurvPass() {
           </div>
 
           {questions[questionNumber].options.map((option, index) => (
-            <div key={index}>
-              <input
-                className='surv-title-inp'
-                type='radio'
-                name='option'
-                value={option}
-                onChange={() => handleOptionChange(option)}
-              />
-              <label>{option}</label>
-            </div>
-          ))}
+  <div key={index}>
+    <input
+      className='surv-title-inp'
+      type='radio'
+      name='option'
+      value={option}
+      checked={questions[questionNumber].answer === option}
+      onChange={() => handleOptionChange(option)}
+    />
+    <label>{option}</label>
+  </div>
+))}
 
           <div className='button-serv-cont'>
             <button className='button-serv' onClick={handleBackClick}>Назад</button>
