@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import axios from 'axios';
 import '../styles/survcreate.css';
 
 function SurvCreate() {
@@ -9,6 +10,21 @@ function SurvCreate() {
   const [step, setStep] = useState(1);
   const [questions, setQuestions] = useState([{ title: '', options: [''], type: 'one', minAnswers: 1, maxAnswers: 1 }]);
   const [activeQuestion, setActiveQuestion] = useState(0);
+
+  const submitSurvey = async () => {
+    const surveyData = {
+      title,
+      category,
+      questions
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:8080/api/survey', surveyData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleNextClick = () => {
     setStep(step + 1);
@@ -150,9 +166,7 @@ return (
       <div className='button-serv-cont'>
         <button className='button-serv' onClick={handleBackClick}>Назад</button>
         <button className='button-serv' onClick={handleNextQuestion}>Далее</button>
-        <button className='button-serv'>
-          <Link to="/survlist">Завершить</Link>
-        </button>
+        <button className='button-serv' onClick={submitSurvey}>Завершить</button>
       </div>
     </div>
   ))
