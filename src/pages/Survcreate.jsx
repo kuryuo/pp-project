@@ -16,10 +16,12 @@ function SurvCreate() {
 
   const submitSurvey = async () => {
     const surveyData = {
-      title,
-      category,
-      questions,
-      filter 
+      survey: {
+        title,
+        category,
+        questions,
+        filter 
+      }
     };
   
     try {
@@ -29,7 +31,6 @@ function SurvCreate() {
       console.error(error);
     }
   };
-
 
   const handleNextClick = () => {
     setStep(step + 1);
